@@ -15,8 +15,7 @@ import { useSearchParams } from 'next/navigation';
 export default function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get('callbackUrl') || '/dashboard';
-  const initialState = { message: null, errors: {} };
-  const [state, formAction, isPending] = useActionState(authenticate, initialState);
+  const [state, formAction, isPending] = useActionState(authenticate, undefined);
 
   return (
     <form action={formAction} className="space-y-3">
@@ -70,10 +69,10 @@ export default function LoginForm() {
           Log in <ArrowRightIcon className="ml-auto h-5 w-5 text-gray-50" />
         </Button>
         <div className="flex h-8 items-end space-x-1">
-        {state?.message && (
+        {state && (
             <>
               <ExclamationCircleIcon className="h-5 w-5 text-red-500" />
-              <p className="text-sm text-red-500">{state.message}</p>
+              <p className="text-sm text-red-500">{state}</p>
             </>
           )}
         </div>
